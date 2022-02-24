@@ -3,7 +3,7 @@
  * @author Drajat Hasan
  * @email drajathasan20@gmail.com
  * @create date 2022-02-24 11:11:58
- * @modify date 2022-02-24 13:18:00
+ * @modify date 2022-02-24 14:28:02
  * @license GPLv3
  * @desc [description]
  */
@@ -99,6 +99,19 @@ class Mailer implements FactoryInterface
 
         return $this;
     }
+
+    /**
+     * Set mail attachment
+     * 
+     * @param string $Path
+     * @param string $OptionalName
+     * @return Mailer
+     */
+    public function setAttachment(string $Path, string $OptionalName = '')
+    {
+        $this->Email->attachFromPath($Path, $OptionalName);
+        return $this;
+    }
     
     /**
      * Send Email
@@ -106,10 +119,10 @@ class Mailer implements FactoryInterface
      * @param string $TemplateMethod
      * @return void
      */
-    public function send(string $TemplateMethod)
+    public function send(string $TemplateMethod, array $DataToParse = [])
     {
         try {
-            $this->Template->{$TemplateMethod}();
+            $this->Template->{$TemplateMethod}($DataToParse);
             $this->Email->html($this->Template->getContents());
             $this->Mailer->send($this->Email);
         } catch (TransportException $e) {

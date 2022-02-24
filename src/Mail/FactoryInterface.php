@@ -3,7 +3,7 @@
  * @author Drajat Hasan
  * @email drajathasan20@gmail.com
  * @create date 2022-02-22 14:03:16
- * @modify date 2022-02-24 13:06:48
+ * @modify date 2022-02-24 14:27:42
  * @license GPLv3
  * @desc [description]
  */
@@ -14,10 +14,11 @@ use Zein\Mail\Template;
 
 interface FactoryInterface
 {
+    public function setAttachment(string $Path, string $OptionalName = '');
     public function getInstance(string $Dsn);
     public function getTemplate($callback = '');
     public function getError(string $ExceptionMethod = 'getMessage');
     public function loadTemplate(Template $Template);
     public function compose($From, string $To, string $Subject, string $ReplyTo = '', $Priority = 0);
-    public function send(string $TemplateMethod);
+    public function send(string $TemplateMethod, array $DataToParse = []);
 }
